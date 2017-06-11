@@ -1,18 +1,18 @@
 <?php
-  #require(dirname(__FILE__) . "/config.php");
+  require(dirname(__FILE__) . "/config.php");
   
   
   
 	//set timezone
-	date_default_timezone_set('Europe/London');
+/* 	date_default_timezone_set('Europe/London'); */
 
 	//database credentials
-	define('DBHOST','localhost');
+/* 	define('DBHOST','localhost');
 	define('DBUSER','root');
 	define('DBPASS','password');
 	define('DBNAME','openvpn_admin');
 	define('DBPORT','3306');
-	
+ */	
 	
 /* 	
 try {
