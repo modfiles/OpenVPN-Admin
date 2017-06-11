@@ -148,7 +148,7 @@ $(function () {
       { title: "Enabled", field: "enable", editable: userEditable },
       { title: "Start Date", field: "startdate", editable: userDateEditable },
       { title: "End Date", field: "enddate", editable: userDateEditable },
-      { title: "Active", field: "activate", editable: userDateEditable },
+      { title: "Activate", field: "activate", editable: userDateEditable },
       { title: "ResetToken", field: "resetToken", editable: userDateEditable },
       { title: "ResetComplete", field: "resetComplete", editable: userDateEditable },
       {
