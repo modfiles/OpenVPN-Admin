@@ -35,10 +35,10 @@
 							  "online"       	=> $data['online'],
 							  "enable"       	=> $data['enable'],
 							  "startdate"   	=> $data['startdate'],
-							  "enddate"      	=> $data['enddate']
-							  "activate"     	=> $data['activate']
-							  "resetToken"      => $data['resetToken']
-							  "resetComplete"   => $data['resetComplete']
+							  "enddate"      	=> $data['enddate'],
+							  "activate"     	=> $data['activate'],
+							  "resetToken"      => $data['resetToken'],
+							  "resetComplete"   => $data['resetComplete'],
                          );
 
         } while($data = $req->fetch());
