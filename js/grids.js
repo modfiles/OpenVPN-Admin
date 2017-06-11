@@ -148,9 +148,6 @@ $(function () {
       { title: "Enabled", field: "enable", editable: userEditable },
       { title: "Start Date", field: "startdate", editable: userDateEditable },
       { title: "End Date", field: "enddate", editable: userDateEditable },
-/*       { title: "Activate", field: "activate" },
-      { title: "ResetToken", field: "resetToken" },
-      { title: "ResetComplete", field: "resetComplete" }, */
       {
         title: 'Delete',
         field: "user_del",

@@ -6,10 +6,6 @@
 
   require(dirname(__FILE__) . '/connect.php');
   require(dirname(__FILE__) . '/functions.php');
-  
-  
-  // create the activation code
-/*    $token = md5(uniqid(rand(),true)); */
    
   // set registration start and expiration
    $startDate = date("Y-m-d H:i:s");
@@ -40,9 +36,6 @@
 							  "enable"       	=> $data['enable'],
 							  "startdate"   	=> $data['startdate'],
 							  "enddate"      	=> $data['enddate'],
-/* 							  "activate"     	=> $data['activate'],
-							  "resetToken"      => $data['resetToken'],
-							  "resetComplete"   => $data['resetComplete'], */
                          );
 
         } while($data = $req->fetch());
@@ -154,12 +147,9 @@
     $enable = 1;
     $start = $startDate;
     $end = $endDate->format('Y-m-d H:i:s');
-/*     $activate = $token;
-    $resetToken = NULL;
-    $resetComplete = "No"; */
 
-    $req = $bdd->prepare('INSERT INTO user (memberID, username, password, email, phone, subscription, online, enable, startdate, enddate, activate, resetToken, resetComplete)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+    $req = $bdd->prepare('INSERT INTO user (memberID, username, password, email, phone, subscription, online, enable, startdate, enddate)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
 
     $res = array(
                   "memberID"      => $mid,
@@ -172,9 +162,6 @@
                   "enable"        => $enable,
                   "startdate"     => $start,
                   "enddate"       => $end,
-/* 				  "activate"	  => $activate,
-				  "resetToken"	  => $resetToken,
-				  "resetComplete" => $resetComplete, */
                 );
 
     $req->execute(array(
@@ -188,10 +175,6 @@
 						$enable,
 						$start,
 						$end,
-/* 						$activate,
-						$resetToken,
-						$resetComplete, */
-						)
 				);
 
     echo json_encode($res);
