@@ -168,10 +168,10 @@
                   "online"        => $online,
                   "enable"        => $enable,
                   "startdate"     => $start,
-                  "enddate"       => $end
-				  "activate"	  => $activate
-				  "resetToken"	  => $resetToken
-				  "resetComplete" => $resetComplete
+                  "enddate"       => $end,
+				  "activate"	  => $activate,
+				  "resetToken"	  => $resetToken,
+				  "resetComplete" => $resetComplete,
                 );
 
     $req->execute(array($mid, $id, $pass, $mail, $phone, $subs, $online, $enable, $start, $end, $activate, $resetToken, $resetComplete));
