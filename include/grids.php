@@ -142,6 +142,7 @@
   else if(isset($_POST['add_user'], $_POST['user_id'], $_POST['user_pass']))
   {
     // Put some default values
+	$mid = NULL;
     $id = $_POST['user_id'];
     $pass = hashPass($_POST['user_pass']);
     $mail = "";
@@ -174,7 +175,22 @@
 				  "resetComplete" => $resetComplete,
                 );
 
-    $req->execute(array($mid, $id, $pass, $mail, $phone, $subs, $online, $enable, $start, $end, $activate, $resetToken, $resetComplete));
+    $req->execute(array(
+						$mid,
+						$id,
+						$pass,
+						$mail,
+						$phone,
+						$subs,
+						$online,
+						$enable,
+						$start,
+						$end,
+						$activate,
+						$resetToken,
+						$resetComplete
+						)
+				);
 
     echo json_encode($res);
   }
