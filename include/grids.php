@@ -9,7 +9,7 @@
   
   
   //create the activation code
-  // $token = md5(uniqid(rand(),true));
+   $token = md5(uniqid(rand(),true));
 
 
   // ---------------- SELECT ----------------
@@ -136,7 +136,6 @@
     }
   }
   
-  // ---------------- END OF SELECT ----------------
 
   // ---------------- ADD USER ----------------
   else if(isset($_POST['add_user'], $_POST['user_id'], $_POST['user_pass']))
@@ -150,8 +149,8 @@
 	$subs = "Free";
     $online = 0;
     $enable = 1;
-    $start = 'CURDATE()';
-    $end = 'CURDATE() + INTERVAL 1 MONTH';
+    $start = NULL;
+    $end = NULL;
     $activate = $token;
     $resetToken = NULL;
     $resetComplete = "No";
