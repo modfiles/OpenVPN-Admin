@@ -141,7 +141,7 @@
   else if(isset($_POST['add_user'], $_POST['user_id'], $_POST['user_pass']))
   {
     // Put some default values
-	$mid = NULL;
+//	$mid = NULL;
     $id = $_POST['user_id'];
     $pass = hashPass($_POST['user_pass']);
     $mail = "";
@@ -149,14 +149,14 @@
 	$subs = "Free";
     $online = 0;
     $enable = 1;
-    $start = NULL;
-    $end = NULL;
+//    $start = NULL;
+//    $end = NULL;
     $activate = $token;
     $resetToken = NULL;
     $resetComplete = "No";
 
     $req = $bdd->prepare('INSERT INTO user (memberID, username, password, email, phone, subscription, online, enable, startdate, enddate, activate, resetToken, resetComplete)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), DATE_ADD(NOW(), INTERVAL 1 MONTH), ?, ?, ?)');
 
     $res = array(
                   "memberID"      => $mid,
