@@ -32,9 +32,9 @@ CREATE TABLE IF NOT EXISTS `user` (
   `enable` tinyint(1) NOT NULL DEFAULT '1',
   `startdate` date NOT NULL,
   `enddate` date NOT NULL,
-  `activate` varchar(255) NOT NULL,
+/*   `activate` varchar(255) NOT NULL,
   `resetToken` varchar(255) DEFAULT NULL,
-  `resetComplete` varchar(3) DEFAULT 'No',
+  `resetComplete` varchar(3) DEFAULT 'No', */
   PRIMARY KEY (`memberID`),
   KEY `username` (`username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

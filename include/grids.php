@@ -9,7 +9,7 @@
   
   
   // create the activation code
-   $token = md5(uniqid(rand(),true));
+/*    $token = md5(uniqid(rand(),true)); */
    
   // set registration start and expiration
    $startDate = date("Y-m-d H:i:s");
@@ -40,9 +40,9 @@
 							  "enable"       	=> $data['enable'],
 							  "startdate"   	=> $data['startdate'],
 							  "enddate"      	=> $data['enddate'],
-							  "activate"     	=> $data['activate'],
+/* 							  "activate"     	=> $data['activate'],
 							  "resetToken"      => $data['resetToken'],
-							  "resetComplete"   => $data['resetComplete'],
+							  "resetComplete"   => $data['resetComplete'], */
                          );
 
         } while($data = $req->fetch());
@@ -154,9 +154,9 @@
     $enable = 1;
     $start = $startDate;
     $end = $endDate->format('Y-m-d H:i:s');
-    $activate = $token;
+/*     $activate = $token;
     $resetToken = NULL;
-    $resetComplete = "No";
+    $resetComplete = "No"; */
 
     $req = $bdd->prepare('INSERT INTO user (memberID, username, password, email, phone, subscription, online, enable, startdate, enddate, activate, resetToken, resetComplete)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
@@ -172,9 +172,9 @@
                   "enable"        => $enable,
                   "startdate"     => $start,
                   "enddate"       => $end,
-				  "activate"	  => $activate,
+/* 				  "activate"	  => $activate,
 				  "resetToken"	  => $resetToken,
-				  "resetComplete" => $resetComplete,
+				  "resetComplete" => $resetComplete, */
                 );
 
     $req->execute(array(
@@ -188,9 +188,9 @@
 						$enable,
 						$start,
 						$end,
-						$activate,
+/* 						$activate,
 						$resetToken,
-						$resetComplete,
+						$resetComplete, */
 						)
 				);
 
