@@ -8,8 +8,12 @@
   require(dirname(__FILE__) . '/functions.php');
   
   
-  //create the activation code
+  // create the activation code
    $token = md5(uniqid(rand(),true));
+   
+  // set registration start and expiration
+   $startDate = date("Y-m-d H:i:s");
+   $endDate = new DateTime('+1 month');
 
 
   // ---------------- SELECT ----------------
@@ -140,8 +144,7 @@
   // ---------------- ADD USER ----------------
   else if(isset($_POST['add_user'], $_POST['user_id'], $_POST['user_pass']))
   {
-    // Put some default values
-//	$mid = NULL;
+	$mid = NULL;
     $id = $_POST['user_id'];
     $pass = hashPass($_POST['user_pass']);
     $mail = "";
@@ -149,14 +152,14 @@
 	$subs = "Free";
     $online = 0;
     $enable = 1;
-//    $start = NULL;
-//    $end = NULL;
+    $start = $startDate;
+    $end = $endDate->format('Y-m-d H:i:s');
     $activate = $token;
     $resetToken = NULL;
     $resetComplete = "No";
 
     $req = $bdd->prepare('INSERT INTO user (memberID, username, password, email, phone, subscription, online, enable, startdate, enddate, activate, resetToken, resetComplete)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), DATE_ADD(NOW(), INTERVAL 1 MONTH), ?, ?, ?)');
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
 
     $res = array(
                   "memberID"      => $mid,

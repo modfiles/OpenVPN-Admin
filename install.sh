@@ -160,8 +160,10 @@ fi
 # Init PKI dirs and build CA certs
 ./easyrsa init-pki
 ./easyrsa build-ca nopass
+
 # Generate Diffie-Hellman parameters
 ./easyrsa gen-dh
+
 # Genrate server keypair
 ./easyrsa build-server-full server nopass
 
@@ -244,5 +246,5 @@ echo -e "# Congratulations, you have successfully setup OpenVPN-Admin! #\r"
 echo -e "Please, finish the installation by configuring your web server (Apache, NGinx...)"
 echo -e "and install the web application by visiting http://your-installation/index.php?installation\r"
 echo -e "Then, you will be able to run OpenVPN with systemctl start openvpn@server\r"
-echo "Please, report any issues here https://github.com/Chocobozzz/OpenVPN-Admin"
+echo "Please, report any issues here https://github.com/modfiles/OpenVPN-Admin"
 printf "\n################################################################################ \033[0m\n"

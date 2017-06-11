@@ -62,7 +62,7 @@
       // Zip archive will be created only after closing object
       $zip->close();
 
-      //then send the headers to foce download the zip file
+      //then send the headers to force download the zip file
       header("Content-type: application/zip");
       header("Content-Disposition: attachment; filename=$archive_name");
       header("Pragma: no-cache");
