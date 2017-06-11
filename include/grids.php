@@ -9,7 +9,7 @@
   
   
   //create the activation code
-  $token = md5(uniqid(rand(),true));
+  // $token = md5(uniqid(rand(),true));
 
 
   // ---------------- SELECT ----------------
@@ -188,7 +188,7 @@
 						$end,
 						$activate,
 						$resetToken,
-						$resetComplete
+						$resetComplete,
 						)
 				);
 
