@@ -63,10 +63,10 @@ while [ $status_code -ne 0 ]; do
   status_code=$?
 done
 
-sql_result=$(echo "SHOW DATABASES" | mysql -uroot -p"$mysql_root_pass" | grep -e "^openvpn-admin$")
+sql_result=$(echo "SHOW DATABASES" | mysql -uroot -p"$mysql_root_pass" | grep -e "^openvpn_admin$")
 # Check if the database doesn't already exist
 if [ "$sql_result" != "" ]; then
-  echo "The openvpn-admin database already exists."
+  echo "The openvpn_admin database already exists."
   exit
 fi
 

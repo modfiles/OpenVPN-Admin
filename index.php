@@ -12,27 +12,27 @@
   }
 
   // Get the configuration files ?
-  if(isset($_POST['configuration_get'], $_POST['configuration_username'], $_POST['configuration_pass'], $_POST['configuration_os'])
-     && !empty($_POST['configuration_pass'])) {
-    $req = $bdd->prepare('SELECT * FROM user WHERE memberID = ?');
+  if(isset($_POST['configuration_get'], $_POST['configuration_username'], $_POST['configuration_pass'], $_POST['configuration_os']) && !empty($_POST['configuration_pass'])) {
+    $req = $bdd->prepare('SELECT * FROM user WHERE username = ?');
     $req->execute(array($_POST['configuration_username']));
     $data = $req->fetch();
 
     // Error ?
     if($data && passEqual($_POST['configuration_pass'], $data['password'])) {
       // Thanks http://stackoverflow.com/questions/4914750/how-to-zip-a-whole-folder-using-php
-      if($_POST['configuration_os'] == "gnu_linux") {
-        $conf_dir = 'gnu-linux';
-      }
-      else if ($_POST['configuration_os'] == "windows") {
-        $conf_dir = 'windows';
-      }
-      else if ($_POST['configuration_os'] == "android") {
-        $conf_dir = 'android';
-      }
-      else {
-        $conf_dir = 'ios';
-      }
+		switch ($_POST['configuration_os']) :
+			case "windows":
+				$conf_dir = 'windows';
+				break;
+			case "android":
+				$conf_dir = 'android';
+				break;
+			case "ios":
+				$conf_dir = 'ios';
+				break;
+			default:
+				$conf_dir = 'gnu_linux';
+		endswitch;
       $rootPath = realpath("./client-conf/$conf_dir");
 
       // Initialize archive object
@@ -42,10 +42,7 @@
       $zip = new ZipArchive();
       $zip->open($archive_path, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
-      $files = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($rootPath),
-        RecursiveIteratorIterator::LEAVES_ONLY
-      );
+      $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($rootPath), RecursiveIteratorIterator::LEAVES_ONLY);
 
       foreach ($files as $name => $file) {
         // Skip directories (they would be added automatically)

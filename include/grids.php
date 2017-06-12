@@ -20,26 +20,24 @@
 	{
       $req = $bdd->prepare('SELECT * FROM user');
       $req->execute();
-
       if($data = $req->fetch())
       {
         do
 		{
           $list[] = array(
-							  "memberID"     	=> $data['memberID'],
-							  "username"     	=> $data['username'],
-							  "password"     	=> $data['password'],
-							  "email"        	=> $data['email'],
-							  "phone"        	=> $data['phone'],
-							  "subscription" 	=> $data['subscription'],
-							  "online"       	=> $data['online'],
-							  "enable"       	=> $data['enable'],
-							  "startdate"   	=> $data['startdate'],
-							  "enddate"      	=> $data['enddate'],
+							  "memberID"      =>	$data['memberID'],
+							  "username"     	=>	$data['username'],
+							  "password"     	=>	$data['password'],
+							  "email"        		=>	$data['email'],
+							  "phone"        		=>	$data['phone'],
+							  "subscription"  =>	$data['subscription'],
+							  "online"       		=>	$data['online'],
+							  "enable"       		=>	$data['enable'],
+							  "startdate"   	=>	$data['startdate'],
+							  "enddate"      	=>	$data['enddate'],
                          );
-
-        } while($data = $req->fetch());
-
+        } 
+		while($data = $req->fetch());
         echo json_encode($list);
       }
 	  
@@ -64,15 +62,11 @@
       $req_string = "SELECT *, (SELECT COUNT(*) FROM log) AS nb FROM log ORDER BY log_id DESC $page";
       $req = $bdd->prepare($req_string);
       $req->execute();
-
       $list = array();
-
       $data = $req->fetch();
-
       if($data)
 	  {
         $nb = $data['nb'];
-
         do
 		{
           // Better in Kb or Mb
@@ -81,21 +75,20 @@
 
           // We add to the array the new line of logs
           array_push($list, array(
-                                  "log_id"            => $data['log_id'],
-                                  "user_id"           => $data['user_id'],
-                                  "log_trusted_ip"    => $data['log_trusted_ip'],
-                                  "log_trusted_port"  => $data['log_trusted_port'],
-                                  "log_remote_ip"     => $data['log_remote_ip'],
-                                  "log_remote_port"   => $data['log_remote_port'],
-                                  "log_start_time"    => $data['log_start_time'],
-                                  "log_end_time"      => $data['log_end_time'],
-                                  "log_received"      => $received,
-                                  "log_send"          => $sent
+                                  "log_id"							=>	$data['log_id'],
+                                  "user_id"						=>	$data['user_id'],
+                                  "log_trusted_ip"			=>	$data['log_trusted_ip'],
+                                  "log_trusted_port"	=>	$data['log_trusted_port'],
+                                  "log_remote_ip"			=>	$data['log_remote_ip'],
+                                  "log_remote_port"	=>	$data['log_remote_port'],
+                                  "log_start_time"		=>	$data['log_start_time'],
+                                  "log_end_time"			=>	$data['log_end_time'],
+                                  "log_received"			=>	$received,
+                                  "log_send"					=>	$sent
                                   )
                     );
-
-
-        } while ($data = $req->fetch());
+        } 
+	while ($data = $req->fetch());
       }
       else
 	  {
@@ -104,7 +97,6 @@
 
       // We finally print the result
       $result = array('total' => intval($nb), 'rows' => $list);
-
       echo json_encode($result);
     }
 
@@ -122,7 +114,6 @@
                           "admin_pass" => $data['admin_pass']
                           );
         } while($data = $req->fetch());
-
         echo json_encode($list);
       }
       else
@@ -152,35 +143,21 @@
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
 
     $res = array(
-                  "memberID"      => $mid,
-                  "username"      => $id,
-                  "password"      => $pass,
-                  "email"         => $mail,
-                  "phone"         => $phone,
-                  "subscription"  => $subs,
-                  "online"        => $online,
-                  "enable"        => $enable,
-                  "startdate"     => $start,
-                  "enddate"       => $end,
+                  "memberID"		=>	$mid,
+                  "username"		=>	$id,
+                  "password"		=>	$pass,
+                  "email"				=>	$mail,
+                  "phone"				=>	$phone,
+                  "subscription"  =>	$subs,
+                  "online"				=>	$online,
+                  "enable"			=>	$enable,
+                  "startdate"		=>	$start,
+                  "enddate"			=>	$end,
                 );
-
-    $req->execute(array(
-						$mid,
-						$id,
-						$pass,
-						$mail,
-						$phone,
-						$subs,
-						$online,
-						$enable,
-						$start,
-						$end,
-				);
-
+    $req->execute(array($mid, $id, $pass, $mail, $phone, $subs, $online, $enable, $start, $end));
     echo json_encode($res);
   }
   
-  // ---------------- END OF ADD USER ----------------
 
   // ---------------- UPDATE USER ----------------
   else if(isset($_POST['set_user'])){

@@ -14,13 +14,13 @@
   $migrations = getMigrationSchemas();
 
   try {
-    $req = $bdd->prepare('SELECT `sql_schema` FROM `application` LIMIT 1');
-    $req->execute();
-    $data = $req->fetch();
+	$req = $bdd->prepare('SELECT `sql_schema` FROM `application` LIMIT 1');
+	$req->execute();
+	$data = $req->fetch();
 
-    $sql_schema = -1;
-    if ($data['sql_schema']) {
-      $sql_schema = $data['sql_schema'];
+	$sql_schema = -1;
+	if ($data['sql_schema']) {
+	  $sql_schema = $data['sql_schema'];
     }
   }
   // Table does not exist
