@@ -12,13 +12,14 @@
   }
 
   // Get the configuration files ?
-  if(isset($_POST['configuration_get'], $_POST['configuration_username'], $_POST['configuration_pass'], $_POST['configuration_os']) && !empty($_POST['configuration_pass'])) {
-    $req = $bdd->prepare('SELECT * FROM user WHERE username = ?');
+  if(isset($_POST['configuration_get'], $_POST['configuration_username'], $_POST['configuration_pass'], $_POST['configuration_os'])
+     && !empty($_POST['configuration_pass'])) {
+    $req = $bdd->prepare('SELECT * FROM user WHERE user_id = ?');
     $req->execute(array($_POST['configuration_username']));
     $data = $req->fetch();
 
     // Error ?
-    if($data && passEqual($_POST['configuration_pass'], $data['password'])) {
+    if($data && passEqual($_POST['configuration_pass'], $data['user_pass'])) {
       // Thanks http://stackoverflow.com/questions/4914750/how-to-zip-a-whole-folder-using-php
 		switch ($_POST['configuration_os']) :
 			case "windows":
@@ -33,6 +34,7 @@
 			default:
 				$conf_dir = 'gnu_linux';
 		endswitch;
+		
       $rootPath = realpath("./client-conf/$conf_dir");
 
       // Initialize archive object
@@ -42,7 +44,10 @@
       $zip = new ZipArchive();
       $zip->open($archive_path, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
-      $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($rootPath), RecursiveIteratorIterator::LEAVES_ONLY);
+      $files = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($rootPath),
+        RecursiveIteratorIterator::LEAVES_ONLY
+      );
 
       foreach ($files as $name => $file) {
         // Skip directories (they would be added automatically)
@@ -59,7 +64,7 @@
       // Zip archive will be created only after closing object
       $zip->close();
 
-      //then send the headers to force download the zip file
+      //then send the headers to foce download the zip file
       header("Content-type: application/zip");
       header("Content-Disposition: attachment; filename=$archive_name");
       header("Pragma: no-cache");

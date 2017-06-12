@@ -59,14 +59,14 @@ status_code=1
 
 while [ $status_code -ne 0 ]; do
   read -p "MySQL root password: " -s mysql_root_pass; echo
-  echo "SHOW DATABASES" | mysql -uroot -p"$mysql_root_pass" &> /dev/null
+  echo "SHOW DATABASES" | mysql -u root --password="$mysql_root_pass" &> /dev/null
   status_code=$?
 done
 
-sql_result=$(echo "SHOW DATABASES" | mysql -uroot -p"$mysql_root_pass" | grep -e "^openvpn_admin$")
+sql_result=$(echo "SHOW DATABASES" | mysql -u root --password="$mysql_root_pass" | grep -e "^openvpn-admin$")
 # Check if the database doesn't already exist
 if [ "$sql_result" != "" ]; then
-  echo "The openvpn_admin database already exists."
+  echo "The openvpn-admin database already exists."
   exit
 fi
 
@@ -74,7 +74,7 @@ fi
 # Check if the user doesn't already exist
 read -p "MySQL user name for OpenVPN-Admin (will be created): " mysql_user
 
-echo "SHOW GRANTS FOR $mysql_user@localhost" | mysql -uroot -p"$mysql_root_pass" &> /dev/null
+echo "SHOW GRANTS FOR $mysql_user@localhost" | mysql -u root --password="$mysql_root_pass" &> /dev/null
 if [ $? -eq 0 ]; then
   echo "The MySQL user already exists."
   exit
@@ -160,10 +160,8 @@ fi
 # Init PKI dirs and build CA certs
 ./easyrsa init-pki
 ./easyrsa build-ca nopass
-
 # Generate Diffie-Hellman parameters
 ./easyrsa gen-dh
-
 # Genrate server keypair
 ./easyrsa build-server-full server nopass
 
@@ -201,10 +199,10 @@ iptables -t nat -A POSTROUTING -s 10.8.0.2/24 -o eth0 -j MASQUERADE
 
 printf "\n################## Setup MySQL database ##################\n"
 
-echo "CREATE DATABASE \`openvpn_admin\`" | mysql -uroot -p"$mysql_root_pass"
-echo "CREATE USER $mysql_user@localhost IDENTIFIED BY '$mysql_pass'" | mysql -uroot -p"$mysql_root_pass"
-echo "GRANT ALL PRIVILEGES ON \`openvpn_admin\`.*  TO $mysql_user@localhost" | mysql -uroot -p"$mysql_root_pass"
-echo "FLUSH PRIVILEGES" | mysql -uroot -p"$mysql_root_pass"
+echo "CREATE DATABASE \`openvpn-admin\`" | mysql -u root --password="$mysql_root_pass"
+echo "CREATE USER $mysql_user@localhost IDENTIFIED BY '$mysql_pass'" | mysql -u root --password="$mysql_root_pass"
+echo "GRANT ALL PRIVILEGES ON \`openvpn-admin\`.*  TO $mysql_user@localhost" | mysql -u root --password="$mysql_root_pass"
+echo "FLUSH PRIVILEGES" | mysql -u root --password="$mysql_root_pass"
 
 
 printf "\n################## Setup web application ##################\n"
@@ -246,5 +244,5 @@ echo -e "# Congratulations, you have successfully setup OpenVPN-Admin! #\r"
 echo -e "Please, finish the installation by configuring your web server (Apache, NGinx...)"
 echo -e "and install the web application by visiting http://your-installation/index.php?installation\r"
 echo -e "Then, you will be able to run OpenVPN with systemctl start openvpn@server\r"
-echo "Please, report any issues here https://github.com/modfiles/OpenVPN-Admin"
+echo "Please, report any issues here https://github.com/Chocobozzz/OpenVPN-Admin"
 printf "\n################################################################################ \033[0m\n"
