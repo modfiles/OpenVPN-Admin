@@ -52,14 +52,14 @@ fi
 echo "DROP USER $mysql_user@localhost" | mysql -u root --password="$mysql_root_pass"
 echo "DROP DATABASE \`openvpn-admin\`" | mysql -u root --password="$mysql_root_pass"
 
-# Files delete (openvpn confs/keys + web application)
-rm -r /etc/openvpn/easy-rsa/
-rm -r /etc/openvpn/{ccd,scripts,server.conf,ca.crt,ta.key,server.crt,server.key,dh*.pem}
-rm -r "$www"
+## Files delete (openvpn confs/keys + web application)
+#rm -r /etc/openvpn/easy-rsa/
+#rm -r /etc/openvpn/{ccd,scripts,server.conf,ca.crt,ta.key,server.crt,server.key,dh*.pem}
+#rm -r "$www"
 
-# Remove rooting rules
-echo 0 > "/proc/sys/net/ipv4/ip_forward"
-sed -i '/net.ipv4.ip_forward = 1/d' '/etc/sysctl.conf'
+## Remove rooting rules
+#echo 0 > "/proc/sys/net/ipv4/ip_forward"
+#sed -i '/net.ipv4.ip_forward = 1/d' '/etc/sysctl.conf'
 
 iptables -D FORWARD -i tun0 -j ACCEPT
 iptables -D FORWARD -o tun0 -j ACCEPT
