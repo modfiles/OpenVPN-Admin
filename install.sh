@@ -118,8 +118,8 @@ sed -i "s/remote xxx\.xxx\.xxx\.xxx 443/remote $ip_server $server_port/" "./clie
 sed -i "s/remote xxx\.xxx\.xxx\.xxx 443/remote $ip_server $server_port/" "./client-conf/windows/client.ovpn"
 
 # Copy ta.key inside the client-conf directory
-cp "/etc/openvpn/"{ca.crt,ta.key} "./client-conf/gnu-linux/"
-cp "/etc/openvpn/"{ca.crt,ta.key} "./client-conf/windows/"
+#cp "/etc/openvpn/"{ca.crt,ta.key} "./client-conf/gnu-linux/"
+#cp "/etc/openvpn/"{ca.crt,ta.key} "./client-conf/windows/"
 
 # Install third parties
 bower --allow-root install
