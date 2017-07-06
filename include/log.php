@@ -29,8 +29,8 @@
 
         do {
           // Better in Kb or Mb
-          $received = ($data['log_received'] > 100000) ? $data['log_received']/100000 . " Mb" : $data['log_received']/100 . " Kb";
-          $sent = ($data['log_send'] > 100000) ? $data['log_send']/100000 . " Mb" : $data['log_send']/100 . " Kb";
+          $received = ($data['log_received'] > 100000) ? $data['log_received']/100000 . " MB" : $data['log_received']/100 . " KB";
+          $sent = ($data['log_send'] > 100000) ? $data['log_send']/100000 . " MB" : $data['log_send']/100 . " KB";
 
           // We add to the array the new line of logs
           array_push($list, array(
