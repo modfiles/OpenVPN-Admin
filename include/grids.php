@@ -16,7 +16,7 @@
 
     // Select the users
     if($_GET['select'] == "user"){
-      $req = $bdd->prepare('SELECT * FROM user');
+      $req = $bdd->prepare('SELECT * FROM user ORDER BY user_online DESC, user_id');
       $req->execute();
 
       if($data = $req->fetch()) {
@@ -49,7 +49,8 @@
       $page = "LIMIT $offset, $limit";
 
       // Select the logs
-      $req_string = "SELECT *, (SELECT COUNT(*) FROM log) AS nb FROM log ORDER BY log_id DESC $page";
+//      $req_string = "SELECT *, (SELECT COUNT(*) FROM log) AS nb FROM log ORDER BY log_id DESC $page";
+      $req_string = "SELECT *, (SELECT COUNT(*) FROM log) AS nb FROM log ORDER BY log_end_time $page";
       $req = $bdd->prepare($req_string);
       $req->execute();
 
@@ -62,8 +63,8 @@
 
         do {
           // Better in Kb or Mb
-          $received = ($data['log_received'] > 100000) ? $data['log_received']/100000 . " Mo" : $data['log_received']/100 . " Ko";
-          $sent = ($data['log_send'] > 100000) ? $data['log_send']/100000 . " Mo" : $data['log_send']/100 . " Ko";
+          $received = ($data['log_received'] > 100000) ? $data['log_received']/100000 . " MB" : $data['log_received']/100 . " KB";
+          $sent = ($data['log_send'] > 100000) ? $data['log_send']/100000 . " MB" : $data['log_send']/100 . " KB";
 
           // We add to the array the new line of logs
           array_push($list, array(

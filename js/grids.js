@@ -223,13 +223,13 @@ $(function () {
     columns: [
       { title: "Log ID", field: "log_id" },
       { title: "User ID", field: "user_id" },
-      { title: "Trusted IP", field: "log_trusted_ip" },
-      { title: "Trusted Port", field: "log_trusted_port" },
-      { title: "Remote IP", field: "log_remote_ip" },
-      { title: "Remote Port", field: "log_remote_port" },
+      { title: "Server IP", field: "log_trusted_ip" },
+      { title: "Server Port", field: "log_trusted_port" },
+      { title: "VPN IP", field: "log_remote_ip" },
+      { title: "VPN Port", field: "log_remote_port" },
       { title: "Start Time", field: "log_start_time" },
       { title: "End Time", field: "log_end_time" },
-      { title: "Receveid", field: "log_received" },
+      { title: "Received", field: "log_received" },
       { title: "Sent", field: "log_send" }
     ]
   });
