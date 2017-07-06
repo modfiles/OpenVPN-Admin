@@ -91,8 +91,12 @@ It will remove all installed components (OpenVPN keys and configurations, the we
 ## Fix mysql not accepting 00:00:00:00 as default value in Ubuntu
 ````
 sudo nano /etc/mysql/conf.d/disable_strict_mode.cnf
+# Add the following entries
+
 [mysqld]
 sql_mode=IGNORE_SPACE,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+
+# Save (Ctrl +X, Y) and restart MySQL server
 sudo service mysql restart
 ````
 
