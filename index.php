@@ -31,6 +31,9 @@
 			case "ios":
 				$conf_dir = 'ios';
 				break;
+			case "ios":
+				$conf_dir = 'osx-viscosity';
+				break;
 			default:
 				$conf_dir = 'gnu_linux';
 		endswitch;
@@ -108,7 +111,7 @@
     <link rel="stylesheet" href="vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" type="text/css" />
     <link rel="stylesheet" href="css/index.css" type="text/css" />
 
-    <link rel="icon" type="image/png" href="css/icon.png">
+    <link rel="icon" type="image/png" href="css/fruit.ico">
   </head>
   <body class='container-fluid'>
   <?php

@@ -227,12 +227,25 @@ sed -i "s/\$user = '';/\$user = '$mysql_user';/" "./include/config.php"
 sed -i "s/\$pass = '';/\$pass = '$mysql_pass';/" "./include/config.php"
 
 # Replace in the client configurations with the ip of the server
-sed -i "s/remote xxx\.xxx\.xxx\.xxx 443/remote $ip_server $server_port/" "./client-conf/gnu-linux/client.conf"
-sed -i "s/remote xxx\.xxx\.xxx\.xxx 443/remote $ip_server $server_port/" "./client-conf/windows/client.ovpn"
+sed -i "s/remote xxx\.xxx\.xxx\.xxx 1125/remote $ip_server $server_port/" "./client-conf/gnu-linux/client.conf"
+sed -i "s/remote xxx\.xxx\.xxx\.xxx 1125/remote $ip_server $server_port/" "./client-conf/android/client.conf"
+sed -i "s/remote xxx\.xxx\.xxx\.xxx 1125/remote $ip_server $server_port/" "./client-conf/ios/client.conf"
+sed -i "s/remote xxx\.xxx\.xxx\.xxx 1125/remote $ip_server $server_port/" "./client-conf/windows/client.ovpn"
+sed -i "s/remote xxx\.xxx\.xxx\.xxx 1125/remote $ip_server $server_port/" "./client-conf/osx-viscosity/client.conf"
+
+# Replace in the client configurations proxy with the ip of the server
+sed -i "s/http-proxy xxx\.xxx\.xxx\.xxx 3128/remote $ip_server $server_port/" "./client-conf/gnu-linux/client.conf"
+sed -i "s/http-proxy xxx\.xxx\.xxx\.xxx 3128/remote $ip_server $server_port/" "./client-conf/android/client.conf"
+sed -i "s/http-proxy xxx\.xxx\.xxx\.xxx 3128/remote $ip_server $server_port/" "./client-conf/ios/client.conf"
+sed -i "s/http-proxy xxx\.xxx\.xxx\.xxx 3128/remote $ip_server $server_port/" "./client-conf/windows/client.ovpn"
+sed -i "s/http-proxy xxx\.xxx\.xxx\.xxx 3128/remote $ip_server $server_port/" "./client-conf/osx-viscosity/client.conf"
 
 # Copy ta.key inside the client-conf directory
 cp "/etc/openvpn/"{ca.crt,ta.key} "./client-conf/gnu-linux/"
 cp "/etc/openvpn/"{ca.crt,ta.key} "./client-conf/windows/"
+cp "/etc/openvpn/"{ca.crt,ta.key} "./client-conf/android/"
+cp "/etc/openvpn/"{ca.crt,ta.key} "./client-conf/ios/"
+cp "/etc/openvpn/"{ca.crt,ta.key} "./client-conf/osx-viscosity/"
 
 # Install third parties
 bower --allow-root install
@@ -244,5 +257,5 @@ echo -e "# Congratulations, you have successfully setup OpenVPN-Admin! #\r"
 echo -e "Please, finish the installation by configuring your web server (Apache, NGinx...)"
 echo -e "and install the web application by visiting http://your-installation/index.php?installation\r"
 echo -e "Then, you will be able to run OpenVPN with systemctl start openvpn@server\r"
-echo "Please, report any issues here https://github.com/Chocobozzz/OpenVPN-Admin"
+echo "Please, report any issues here https://github.com/modfiles/OpenVPN-Admin"
 printf "\n################################################################################ \033[0m\n"

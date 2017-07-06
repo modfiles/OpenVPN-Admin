@@ -9,7 +9,7 @@
 
   // set registration start and expiration 1month
    $startDate = date("Y-m-d H:i:s");
-   $endDate = new DateTime('+1 month');
+   $endDate = new DateTime(('+1 month')'+2 day');
    
   // ---------------- SELECT ----------------
   if(isset($_GET['select'])){
