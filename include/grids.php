@@ -9,7 +9,7 @@
 
   // set registration start and expiration 1month
    $startDate = date("Y-m-d H:i:s");
-   $endDate = new DateTime(('+1 month')'+2 day');
+   $endDate = new DateTime('+1 month');
    
   // ---------------- SELECT ----------------
   if(isset($_GET['select'])){
@@ -49,7 +49,6 @@
       $page = "LIMIT $offset, $limit";
 
       // Select the logs
-//      $req_string = "SELECT *, (SELECT COUNT(*) FROM log) AS nb FROM log ORDER BY log_id DESC $page";
       $req_string = "SELECT *, (SELECT COUNT(*) FROM log) AS nb FROM log ORDER BY log_end_time $page";
       $req = $bdd->prepare($req_string);
       $req->execute();
@@ -61,11 +60,28 @@
       if($data) {
         $nb = $data['nb'];
 
-        do {
-          // Better in Kb or Mb
-          $received = ($data['log_received'] > 100000) ? $data['log_received']/100000 . " MB" : $data['log_received']/100 . " KB";
-          $sent = ($data['log_send'] > 100000) ? $data['log_send']/100000 . " MB" : $data['log_send']/100 . " KB";
+        do {		  
+			if ($received = ($data['log_received'] >= 1073741824)) :
+				$received = convertToReadableSize($data['log_received']);
+			elseif ($received = ($data['log_received'] >= 1048576)) :
+				$received = convertToReadableSize($data['log_received']);
+			elseif ($received = $data['log_received'] <= 1023) :
+				$received = $data['log_received'] . " Bytes";
+			else :
+				$received = convertToReadableSize($data['log_received']);
+			endif;
 
+
+			if ($sent = ($data['log_send'] >= 1073741824)) :
+				$sent = convertToReadableSize($data['log_send']);
+			elseif ($sent = ($data['log_received'] >= 1048576)) :
+				$sent = convertToReadableSize($data['log_send']);
+			elseif ($sent = $data['log_received'] <= 1023) :
+				$sent = $data['log_send'] . " Bytes";
+			else :
+				$sent = convertToReadableSize($data['log_send']);
+			endif;
+			
           // We add to the array the new line of logs
           array_push($list, array(
                                   "log_id" => $data['log_id'],
